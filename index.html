@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f8f9fa">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="manifest" href="manifest.json">
+
+    <title>Easy-App-Money | Premium App Builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold-gradient: linear-gradient(45deg, #a67c00, #bf953f, #d4af37, #f9f295, #ab7d00);
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --shadow-premium: 0 15px 50px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header-container {
+            width: 100%; max-width: 500px;
+            background: #000; border-radius: 20px; 
+            box-shadow: var(--shadow-premium);
+            margin-bottom: 25px; overflow: hidden;
+            position: relative; aspect-ratio: 16 / 9;
+        }
+
+        #promoVideo { width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
+
+        .premium-container {
+            width: 100%; max-width: 500px;
+            background: var(--white); padding: 30px 20px;
+            border-radius: 25px; box-shadow: var(--shadow-premium);
+            border: 1px solid #f0f0f0;
+        }
+
+        .form-title { text-align: center; font-weight: 700; margin-bottom: 25px; color: #333; font-size: 1.2rem; }
+        .form-group { margin-bottom: 18px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #555; }
+        
+        input, select, textarea {
+            width: 100%; padding: 14px; background: #fafafa; border: 1.5px solid #eee;
+            border-radius: 12px; outline: none; font-family: inherit;
+        }
+
+        .btn-submit {
+            width: 100%; padding: 18px; background: var(--gold-gradient);
+            border: none; border-radius: 15px; color: #000;
+            font-weight: 700; font-size: 1.1rem; cursor: pointer;
+            text-transform: uppercase; margin-top: 10px;
+        }
+
+        /* --- Updated Rating Section --- */
+        .rating-box {
+            width: 100%; max-width: 500px; background: var(--white);
+            padding: 25px; border-radius: 20px; box-shadow: var(--shadow-premium);
+            margin-top: 25px; text-align: center;
+        }
+
+        .stars-input { display: flex; justify-content: center; flex-direction: row-reverse; gap: 8px; margin-top: 10px; }
+        .stars-input input { display: none; }
+        .stars-input label { font-size: 35px; color: #ddd; cursor: pointer; transition: 0.2s; }
+        .stars-input label:hover, .stars-input label:hover ~ label, .stars-input input:checked ~ label { color: #FFD700; }
+
+        #rating-response { 
+            margin-top: 15px; font-weight: 600; display: none; 
+            font-size: 0.95rem; line-height: 1.5; color: #444;
+            padding: 10px; border-top: 1px solid #eee;
+        }
+
+        .support-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #25D366;
+            color: white; width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none; font-size: 32px; z-index: 1000;
+        }
+    </style>
+</head>
+<body onclick="enableSound()">
+
+    <div class="header-container">
+        <video id="promoVideo" autoplay muted playsinline preload="auto">
+            <source src="https://raw.githubusercontent.com/modernsoftdevteam/Easy-App-Money/main/VN20260304_154721.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="premium-container">
+        <div class="form-title">নিজস্ব অ্যাপ বানিয়ে ইনকাম শুরু করুন</div>
+        <div class="form-group">
+            <label>আপনার নাম</label>
+            <input type="text" id="name" placeholder="নাম লিখুন">
+        </div>
+        <div class="form-group">
+            <label>অ্যাপের ধরণ</label>
+            <select id="appType">
+                <option value="Social Boost">সোশ্যাল মিডিয়া বুস্ট অ্যাপ</option>
+                <option value="E-commerce">ই-কমার্স অ্যাপ</option>
+                <option value="Others">অন্যান্য</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>ফিচারগুলো লিখুন</label>
+            <textarea id="features" rows="3" placeholder="কি কি সুবিধা চান?"></textarea>
+        </div>
+        <button class="btn-submit" onclick="sendOrder()">অর্ডার কনফার্ম করুন</button>
+    </div>
+
+    <div class="rating-box">
+        <div style="color:#d4af37; font-weight:700;">Global Rating 5.0 ★★★★★</div>
+        <div class="stars-input">
+            <input type="radio" name="star" id="star5" onclick="handleRating(5)"><label for="star5">★</label>
+            <input type="radio" name="star" id="star4" onclick="handleRating(4)"><label for="star4">★</label>
+            <input type="radio" name="star" id="star3" onclick="handleRating(3)"><label for="star3">★</label>
+            <input type="radio" name="star" id="star2" onclick="handleRating(2)"><label for="star2">★</label>
+            <input type="radio" name="star" id="star1" onclick="handleRating(1)"><label for="star1">★</label>
+        </div>
+        <div id="rating-response"></div>
+    </div>
+
+    <a href="#" class="support-btn" onclick="sendSupport()">💬</a>
+
+    <script>
+        const myNumber = "916295650647";
+        const video = document.getElementById('promoVideo');
+
+        function enableSound() {
+            if (video.muted) {
+                video.muted = false;
+                video.play();
+            }
+        }
+
+        video.onended = function() {
+            setTimeout(() => {
+                video.currentTime = 0;
+                video.play();
+            }, 10000); 
+        };
+
+        // রেটিং অনুযায়ী মেসেজ ও ইমোজি দেখানোর ফাংশন
+        function handleRating(star) {
+            const resBox = document.getElementById('rating-response');
+            resBox.style.display = "block";
+            
+            if(star === 5) {
+                resBox.innerHTML = "🤩 রেটিং দেওয়ার জন্য আপনাকে অসংখ্য ধন্যবাদ! আপনাদের ফাইভ স্টার রেটিং আমাদের আরো এগিয়ে যেতে সাহায্য করবে।";
+                resBox.style.color = "#a67c00";
+            } else if(star === 4) {
+                resBox.innerHTML = "😊 রেটিং দেওয়ার জন্য আপনাকে অসংখ্য ধন্যবাদ! আমরা আমাদের সার্ভিস আরও উন্নত করার চেষ্টা করছি।";
+                resBox.style.color = "#333";
+            } else {
+                resBox.innerHTML = "🙏 ফিডব্যাক দেওয়ার জন্য ধন্যবাদ। আমরা আপনার অভিজ্ঞতা আরও ভালো করার চেষ্টা করব।";
+                resBox.style.color = "#777";
+            }
+        }
+
+        function sendOrder() {
+            const name = document.getElementById('name').value;
+            const features = document.getElementById('features').value;
+            const appType = document.getElementById('appType').value;
+            if(!name || !features) { alert("সব তথ্য পূরণ করুন।"); return; }
+            window.open(`https://wa.me/${myNumber}?text=New Order!%0AName: ${name}%0AType: ${appType}%0AFeatures: ${features}`, '_blank');
+        }
+
+        function sendSupport() {
+            window.open(`https://wa.me/${myNumber}?text=হ্যালো! আমার সাপোর্ট প্রয়োজন।`, '_blank');
+        }
+    </script>
+</body>
+</html>
