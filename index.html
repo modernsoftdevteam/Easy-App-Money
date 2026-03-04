@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Social Boost - Video Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold-gradient: linear-gradient(45deg, #a67c00, #bf953f, #d4af37, #f9f295, #ab7d00);
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #222222;
+            --android-green: #3DDC84;
+            --shadow-premium: 0 15px 50px rgba(0,0,0,0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        /* --- Updated Header with Video Player --- */
+        .header-container {
+            width: 100%; max-width: 500px;
+            background: #000; /* ভিডিওর জন্য কালো ব্যাকগ্রাউন্ড */
+            border-radius: 20px; 
+            box-shadow: var(--shadow-premium);
+            margin-bottom: 20px; 
+            overflow: hidden; /* ভিডিওর কোণা গোল রাখার জন্য */
+            border: 1px solid #eee;
+            aspect-ratio: 16 / 9; /* স্ট্যান্ডার্ড ভিডিও সাইজ */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #promoVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- Main Form --- */
+        .premium-container {
+            width: 100%; max-width: 500px;
+            background: var(--white); padding: 40px 30px;
+            border-radius: 25px; box-shadow: var(--shadow-premium);
+            border: 1px solid #f0f0f0; position: relative;
+        }
+
+        .customer-support-top {
+            position: absolute; right: 25px; top: 15px;
+            font-size: 13px; font-weight: 700; color: #999;
+            cursor: pointer;
+        }
+
+        .form-title { text-align: center; font-weight: 700; margin-bottom: 20px; color: #333; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #555; font-size: 0.9rem; }
+        input, select, textarea {
+            width: 100%; padding: 14px; background: #fafafa; border: 1.5px solid #eee;
+            border-radius: 12px; outline: none; transition: 0.3s;
+        }
+
+        .btn-submit {
+            width: 100%; padding: 18px; background: var(--gold-gradient);
+            border: none; border-radius: 14px; color: #fff;
+            font-weight: 700; font-size: 1.1rem; cursor: pointer;
+            text-transform: uppercase; position: relative; overflow: hidden;
+            box-shadow: 0 6px 20px rgba(166, 124, 0, 0.2);
+        }
+
+        /* --- Rating Section --- */
+        .rating-box {
+            width: 100%; max-width: 500px; background: var(--white);
+            padding: 25px; border-radius: 20px; box-shadow: var(--shadow-premium);
+            margin-top: 20px; text-align: center;
+        }
+
+        .global-rating { font-weight: 700; color: #FFD700; font-size: 1.2rem; margin-bottom: 10px; }
+        
+        .stars-input { display: flex; justify-content: center; flex-direction: row-reverse; gap: 5px; }
+        .stars-input input { display: none; }
+        .stars-input label { font-size: 35px; color: #ddd; cursor: pointer; transition: 0.2s; }
+        .stars-input label:hover, .stars-input label:hover ~ label, .stars-input input:checked ~ label { color: #FFD700; }
+
+        #rating-response {
+            margin-top: 15px; font-weight: 700; font-size: 1rem;
+            display: none; padding: 10px; border-radius: 10px;
+        }
+
+        .support-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #25D366;
+            color: white; width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none; font-size: 32px; z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <video id="promoVideo" autoplay muted playsinline>
+            <source src="https://drive.google.com/uc?export=view&id=1hdKH00kuft08ODzT4Lx0IoY8lXXFlKhh" type="video/mp4">
+            আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
+        </video>
+    </div>
+
+    <div class="premium-container">
+        <div class="customer-support-top" onclick="sendSupport()">Customer Support</div>
+        <div class="form-title">App বানিয়ে ইনকাম শুরু করুন</div>
+        
+        <div class="form-group">
+            <label>আপনার পূর্ণ নাম</label>
+            <input type="text" id="name" placeholder="এখানে নাম লিখুন">
+        </div>
+
+        <div class="form-group">
+            <label>অ্যাপ্লিকেশনের ধরণ</label>
+            <select id="appType">
+                <option value="Social Media">সোশ্যাল মিডিয়া (Boost)</option>
+                <option value="E-commerce">ই-কমার্স (Shopping)</option>
+                <option value="Educational">এডুকেশনাল অ্যাপ</option>
+                <option value="Others">অন্যান্য / Others</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>ফিচারগুলো লিখুন</label>
+            <textarea id="features" rows="3" placeholder="কি কি সুবিধা চান?"></textarea>
+        </div>
+
+        <button class="btn-submit" onclick="sendOrder()">অর্ডার কনফার্ম করুন</button>
+    </div>
+
+    <div class="rating-box">
+        <div class="global-rating">★★★★★ 5.0 (Global Rating)</div>
+        <p style="font-size: 0.9rem; margin-bottom: 10px; color: #666;">আমাদের রেটিং দিন:</p>
+        <div class="stars-input">
+            <input type="radio" name="star" id="star5" onclick="handleRating(5)"><label for="star5">★</label>
+            <input type="radio" name="star" id="star4" onclick="handleRating(4)"><label for="star4">★</label>
+            <input type="radio" name="star" id="star3" onclick="handleRating(3)"><label for="star3">★</label>
+            <input type="radio" name="star" id="star2" onclick="handleRating(2)"><label for="star2">★</label>
+            <input type="radio" name="star" id="star1" onclick="handleRating(1)"><label for="star1">★</label>
+        </div>
+        <div id="rating-response"></div>
+    </div>
+
+    <a href="#" class="support-btn" onclick="sendSupport()">💬</a>
+
+    <script>
+        const myNumber = "916295650647";
+        const video = document.getElementById('promoVideo');
+
+        // ভিডিও শেষ হওয়ার ১০ সেকেন্ড পর আবার চালু করার লজিক
+        video.onended = function() {
+            setTimeout(() => {
+                video.play();
+            }, 10000); // ১০,০০০ মিলিসেকেন্ড = ১০ সেকেন্ড
+        };
+
+        function handleRating(star) {
+            const resBox = document.getElementById('rating-response');
+            resBox.style.display = "block";
+            
+            if(star === 5) {
+                resBox.innerHTML = "🤩 অভিনন্দন! আপনি ৫ স্টার দিয়েছেন! ধন্যবাদ!";
+                resBox.style.color = "#FFD700";
+            } else if(star === 4) {
+                resBox.innerHTML = "🥳 ৪ স্টার রেটিং দেওয়ার জন্য ধন্যবাদ!";
+                resBox.style.color = "#3DDC84";
+            } else {
+                resBox.innerHTML = "🙏 আপনার ফিডব্যাকের জন্য ধন্যবাদ।";
+                resBox.style.color = "#999";
+            }
+        }
+
+        function sendOrder() {
+            const name = document.getElementById('name').value;
+            const features = document.getElementById('features').value;
+            const appType = document.getElementById('appType').value;
+            if(!name || !features) { alert("সব তথ্য পূরণ করুন।"); return; }
+            window.open(`https://wa.me/${myNumber}?text=New Order Request!%0AName: ${name}%0AApp Type: ${appType}%0AFeatures: ${features}`, '_blank');
+        }
+
+        function sendSupport() {
+            window.open(`https://wa.me/${myNumber}?text=হ্যালো! আমার কাস্টমার সাপোর্ট প্রয়োজন।`, '_blank');
+        }
+    </script>
+</body>
+</html>
