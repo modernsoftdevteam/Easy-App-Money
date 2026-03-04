@@ -1,0 +1,17 @@
+{
+  "name": "Easy App Money",
+  "short_name": "AppMoney",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#f8f9fa",
+  "orientation": "portrait",
+  "description": "নিজস্ব অ্যাপ বানিয়ে ইনকাম শুরু করুন",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/modernsoftdevteam/Easy-App-Money/main/VN20260304_154721.mp4",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
